@@ -25,7 +25,6 @@ const signup = async (email, password, displayName) => {
 }
 
 const useSignup = () => {
-
   return { error, signup }
 }
 
