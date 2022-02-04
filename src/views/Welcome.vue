@@ -8,7 +8,7 @@
     </div>
     <div v-else>
       <h2>Signup</h2>
-      <SignupForm />
+      <SignupForm @signup="enterChat" />
       <p>Already registered? <span @click="toggleShowLogin">Login</span> instead</p>
     </div>
   </div>
