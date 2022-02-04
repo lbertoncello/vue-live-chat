@@ -9,10 +9,6 @@ const login = async (email, password) => {
   try {
     const res = await projectAuth.signInWithEmailAndPassword(email, password)
 
-    if(!res) {
-      throw new Error('')
-    }
-
     error.value = null
     console.log(res)
 
