@@ -4,13 +4,28 @@
       <p>Hey there... display name here</p>
       <p class="email">Current logged in as... email</p>
     </div>
-    <button>Logout</button>
+    <button @click="handleClick">Logout</button>
   </nav>
 </template>
 
 <script>
-export default {
+import { useRouter } from 'vue-router'
+import useLogout from '../composables/useLogout'
 
+export default {
+  setup() {
+    const router = useRouter()
+    const { error, logout } = useLogout()
+
+    const handleClick = async () => {
+      await logout()
+      if (!error.value) {
+        router.push({ name: 'Welcome' })
+      }
+    }
+
+    return { handleClick }
+  }
 }
 </script>
 
