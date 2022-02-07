@@ -8,6 +8,7 @@ const getCollection = (collection) => {
     .orderBy('createdAt')
 
   collectionRef.onSnapshot((snap) => {
+    console.log(snap)
     const results = []
     snap.docs.forEach((doc) => {
       /*
@@ -17,7 +18,7 @@ const getCollection = (collection) => {
        */
       doc.data().createdAt && results.push({ id: doc.id, ...doc.data() })
     })
-    docs.value = results
+    documents.value = results
     error.value = null
   }, (err) => {
     console.error(err.message)
