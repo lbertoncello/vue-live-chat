@@ -9,21 +9,16 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
 import useLogout from '../composables/useLogout'
 import getUser from '../composables/getUser'
 
 export default {
   setup() {
-    const router = useRouter()
-    const { error, logout } = useLogout()
+    const { logout } = useLogout()
     const { user } = getUser()
 
     const handleClick = async () => {
       await logout()
-      if (!error.value) {
-        router.push({ name: 'Welcome' })
-      }
     }
 
     return { handleClick, user }
