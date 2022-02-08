@@ -8,7 +8,6 @@ const getCollection = (collection) => {
     .orderBy('createdAt')
 
   const unsub = collectionRef.onSnapshot((snap) => {
-    console.log('snap')
     const results = []
     snap.docs.forEach((doc) => {
       /*
