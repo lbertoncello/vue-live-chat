@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { projectFirestore } from '../firebase/config'
 
 const getCollection = (collection) => {
@@ -7,8 +7,8 @@ const getCollection = (collection) => {
   const collectionRef = projectFirestore.collection(collection)
     .orderBy('createdAt')
 
-  collectionRef.onSnapshot((snap) => {
-    console.log(snap)
+  const unsub = collectionRef.onSnapshot((snap) => {
+    console.log('snap')
     const results = []
     snap.docs.forEach((doc) => {
       /*
@@ -24,6 +24,14 @@ const getCollection = (collection) => {
     console.error(err.message)
     documents.value = null
     error.value = 'Could not fetch data'
+  })
+
+  /* 
+   * onInvalidate runs when the component where watchEffect was called unmounts.
+   * In this case, it will happen when the user logs out.
+   */
+  watchEffect((onInvalidate) => {
+    onInvalidate(() => unsub())
   })
 
   return { error, documents }
